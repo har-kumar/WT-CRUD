@@ -9,196 +9,162 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-image: url('https://wallpaperaccess.com/full/1264507.jpg');
+      background: url('http://www.wallpaperbetter.com/wallpaper/28/871/629/airbus-a330-passenger-aircraft-airport-night-city-1080P-wallpaper.jpg') no-repeat center center fixed; 
       background-size: cover;
     }
-
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      width: 350px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      overflow: hidden;
-      background-color: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .form {
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
       padding: 20px;
-      display: none;
+      background-color: rgba(255, 255, 255, 0.5); /* White background with increased transparency */
+      border-radius: 10px;
     }
-
-    .active {
-      display: block;
-    }
-
     header {
-      font-size: 24px;
+      background-color: #333;
+      color: #fff;
       text-align: center;
+      padding: 10px 0;
+    }
+    header h1 {
+      margin: 0;
+    }
+    section {
       margin-bottom: 20px;
     }
-
-    input,
-    .checkbox {
-      margin-top: 10px;
+    h2 {
+      margin-bottom: 10px;
+    }
+    form {
+      background-color: rgba(255, 255, 255, 0.8); /* White background with opacity */
+      padding: 20px;
+      border-radius: 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    select,
+    input[type="date"],
+    input[type="submit"] {
       width: 100%;
+      margin-bottom: 10px;
       padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
+      border-radius: 5px;
     }
-
-    .checkbox label {
-      font-size: 14px;
-    }
-
-    .toggle-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0;
-    }
-
-    .toggle-buttons button {
-      flex: 1;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #007bff;
-      border: none;
-      border-radius: 4px;
-      color: #ffffff;
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
-
-    .toggle-buttons button:hover {
-      background-color: #0056b3;
-    }
-
-    .additional-info {
+    footer {
+      background-color: #333;
+      color: #fff;
       text-align: center;
-      margin-top: 20px;
-      color: #333;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
-
-    .additional-info a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
+    section {
+      display: none;
     }
-
-    .additional-info a:hover {
-      text-decoration: underline;
+    section.active {
+      display: block;
     }
   </style>
 </head>
 <body>
-  <section class="wrapper">
-    <div class="form signup active">
-      <header>SIGNUP PAGE</header>
+  <header>
+    <h1>Airline Reservation System</h1>
+  </header>
+
+  <div class="container">
+    <button id="registrationBtn" onclick="showSection('registration')">Registration</button>
+    <button id="loginBtn" onclick="showSection('login')">Login</button>
+    <button id="updateBtn" onclick="showSection('update')">Update Profile</button>
+    <button id="deleteBtn" onclick="showSection('delete')">Delete Account</button>
+
+    <section id="registrationSection" class="active">
+      <h2>Registration</h2>
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="text" placeholder="Last Name" name="lastName" required>
+        <input type="text" placeholder="Full Name" name="fullName" required>
         <input type="email" placeholder="Email Address" name="email" required>
-        <input type="text" placeholder="Phone Number" name="phone" required>
         <input type="password" placeholder="Password" name="password" required>
-        <input type="submit" value="Signup">
+        <input type="tel" placeholder="Phone Number" name="phone" required>
+        <select name="destination" required>
+          <option value="" disabled selected>Preferred Destination</option>
+          <option value="Paris">Paris</option>
+          <option value="New York">New York</option>
+          <option value="Tokyo">Tokyo</option>
+          <!-- Add more destination options -->
+        </select>
+        <input type="date" placeholder="Travel Date" name="travelDate" required>
+        <input type="submit" value="Register">
       </form>
-      <div class="additional-info">
-        Already have an account? <a href="#" id="login-link">Login Here</a>
-      </div>
-    </div>
+    </section>
 
-    <div class="toggle-buttons">
-      <button id="login-button">LOGIN </button>
-      <button id="update-button">UPDATE</button>
-      <button id="delete-button">DELETE</button>
-    </div>
-
-    <div class="form login">
-      <header>LOGIN PAGE</header>
+    <section id="loginSection">
+      <h2>Login</h2>
       <form action="/login" method="post">
         <input type="email" placeholder="Email Address" name="email" required>
         <input type="password" placeholder="Password" name="password" required>
         <input type="submit" value="Login">
       </form>
-      <div class="additional-info">
-        Don't have an account? <a href="#" id="signup-link">SignUp Here</a>
-      </div>
-    </div>
+    </section>
 
-    <div class="form update">
-      <header>UPDATE</header>
+    <section id="updateSection">
+      <h2>Update Profile</h2>
       <form action="/update" method="post">
-        <input type="email" placeholder="Current Email" name="email" required>
+        <input type="email" placeholder="Current Email Address" name="email" required>
         <input type="password" placeholder="Current Password" name="password" required>
-        <input type="email" placeholder="New Email Address" name="newEmail" required>
-        <input type="password" placeholder="New Password" name="newPassword" required>
-        <input type="submit" value="UPDATE">
+        <input type="text" placeholder="New Full Name" name="newFullName">
+        <input type="email" placeholder="New Email Address" name="newEmail">
+        <input type="password" placeholder="New Password" name="newPassword">
+        <input type="tel" placeholder="New Phone Number" name="newPhone">
+        <select name="newDestination">
+          <option value="" disabled selected>New Preferred Destination</option>
+          <option value="Paris">Paris</option>
+          <option value="New York">New York</option>
+          <option value="Tokyo">Tokyo</option>
+          <!-- Add more destination options -->
+        </select>
+        <input type="date" placeholder="New Travel Date" name="newTravelDate">
+        <input type="submit" value="Update">
       </form>
-    </div>
+    </section>
 
-    <div class="form delete">
-      <header>DELETE</header>
+    <section id="deleteSection">
+      <h2>Delete Account</h2>
       <form action="/delete" method="post">
         <input type="email" placeholder="Email Address" name="email" required>
         <input type="password" placeholder="Password" name="password" required>
         <input type="submit" value="Delete">
       </form>
-    </div>
-  </section>
+    </section>
+
+    <section id="bookingSection">
+      <h2>Book a Flight</h2>
+      <!-- Booking form similar to registration form -->
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Airline Reservation System</p>
+  </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const loginButton = document.getElementById('login-button');
-      const updateButton = document.getElementById('update-button');
-      const deleteButton = document.getElementById('delete-button');
-      const signupForm = document.querySelector('.form.signup');
-      const loginForm = document.querySelector('.form.login');
-      const updateForm = document.querySelector('.form.update');
-      const deleteForm = document.querySelector('.form.delete');
-      const loginLink = document.getElementById('login-link');
-      const signupLink = document.getElementById('signup-link');
-
-      loginButton.addEventListener('click', function() {
-        signupForm.classList.remove('active');
-        loginForm.classList.add('active');
-      });
-
-      signupLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        loginForm.classList.remove('active');
-        updateForm.classList.remove('active');
-        deleteForm.classList.remove('active');
-        signupForm.classList.add('active');
-      });
-
-      updateButton.addEventListener('click', function() {
-        signupForm.classList.remove('active');
-        loginForm.classList.remove('active');
-        updateForm.classList.add('active');
-        deleteForm.classList.remove('active');
-      });
-
-      deleteButton.addEventListener('click', function() {
-        signupForm.classList.remove('active');
-        loginForm.classList.remove('active');
-        updateForm.classList.remove('active');
-        deleteForm.classList.add('active');
-      });
-
-      loginLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        signupForm.classList.remove('active');
-        updateForm.classList.remove('active');
-        deleteForm.classList.remove('active');
-        loginForm.classList.add('active');
-      });
-    });
+    function showSection(sectionId) {
+      const sections = ['registrationSection', 'loginSection', 'updateSection', 'deleteSection', 'bookingSection'];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (section === sectionId + 'Section') {
+          element.classList.add('active');
+        } else {
+          element.classList.remove('active');
+        }
+      }
+    }
   </script>
 </body>
 </html>
